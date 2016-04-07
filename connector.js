@@ -44,7 +44,7 @@ ajax.send = function (url, callback, method, data, async) {
     var x = ajax.x();
     x.open(method, url, async);
     x.onreadystatechange = function () {
-        if (x.readyState == 4) {
+        if (x.readyState == 4 && callback) {
             callback(x.responseText)
         }
     };
