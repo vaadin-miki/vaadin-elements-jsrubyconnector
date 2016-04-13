@@ -1,5 +1,6 @@
 /**
- * Created by miki on 2016-04-07.
+ * Created by Miki. This file is used by Ruby gem vaadin-elements.
+ * Version 0.20160413
  */
 function serverCallbackResponse(e) {
 console.log(e);
@@ -8,7 +9,12 @@ for(var oid in resp) {
     var comp = document.querySelector('#'+oid);
     for(var meth in resp[oid]) {
         if(meth in comp) {
-            comp[meth] = resp[oid][meth];
+            if(typeof comp[meth] === 'function') {
+                comp[meth]();
+            }
+            else {
+                comp[meth] = resp[oid][meth];
+            }
 }}}}
 
 // ajax code http://stackoverflow.com/a/18078705/384484 thanks Petah
