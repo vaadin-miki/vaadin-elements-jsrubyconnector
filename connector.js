@@ -1,6 +1,6 @@
 /**
  * Created by Miki. This file is used by Ruby gem vaadin-elements.
- * Version 0.20160413
+ * Version 0.20160518
  */
 function serverCallbackResponse(e) {
 console.log(e);
@@ -71,7 +71,7 @@ ajax.get = function (url, data, callback, async) {
 ajax.post = function (url, data, callback, async) {
     var query = [];
     for (var key in data) {
-        query.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
+        query.push(encodeURIComponent(key) + '=' + encodeURIComponent(JSON.stringify(data[key])));
     }
     ajax.send(url, callback, 'POST', query.join('&'), async)
 };
