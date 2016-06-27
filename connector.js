@@ -63,7 +63,12 @@ ajax.send = function (url, callback, method, data, async) {
 ajax.get = function (url, data, callback, async) {
     var query = [];
     for (var key in data) {
-        query.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
+        if(data instanceof Array) {
+            for(var elem in data) {
+                query.push(encodeURIComponent(key+'[]')+ '=' + encodeURIComponent(JSON.stringify(elem)))
+            }
+        }
+        else query.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
     }
     ajax.send(url + (query.length ? '?' + query.join('&') : ''), callback, 'GET', null, async)
 };
@@ -71,7 +76,12 @@ ajax.get = function (url, data, callback, async) {
 ajax.post = function (url, data, callback, async) {
     var query = [];
     for (var key in data) {
-        query.push(encodeURIComponent(key) + '=' + encodeURIComponent(JSON.stringify(data[key])));
+        if(data instanceof Array) {
+            for(var elem in data) {
+                query.push(encodeURIComponent(key+'[]')+ '=' + encodeURIComponent(JSON.stringify(elem)))
+            }
+        }
+        else query.push(encodeURIComponent(key) + '=' + encodeURIComponent(JSON.stringify(data[key])));
     }
     ajax.send(url, callback, 'POST', query.join('&'), async)
 };
